@@ -2,20 +2,23 @@ import React from 'react'
 import { Avatar, Button, Card, Text, TextInput } from 'react-native-paper'
 import { View, StyleSheet, ImageBackground, ToastAndroid } from 'react-native'
 
-import { useAppDispatch } from '../../store/hooks'
-import { login } from '../../store/context/authSlice'
-import { theme } from '../../style/theme'
 import {Link, router} from "expo-router"
+import { useAppDispatch } from '../../../store/hooks'
+import { theme } from '../../../style/theme'
+import { userActions } from '../../../store/context/userSlice'
 
-const iconUri = require('../../assets/icon.png')
+
+const iconUri = require('../../../assets/icon.png')
+
 
 type Props = {}
 
-const Login = (props: Props) => {
+const Signup = (props: Props) => {
     const dispatch = useAppDispatch();
 
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [confirmPassword, setConfirmPassword] = React.useState('');
 
     const [visible, setVisible] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
@@ -23,21 +26,34 @@ const Login = (props: Props) => {
     const [error, setError] = React.useState('');
 
 
-    const _onLoginPressed = async () => {
+    const _onSignupPressed = async () => {
         try {
             console.log("Login Pressed");
             setLoading(true);
             if (username.length === 0 || password.length === 0) {
                 throw new Error("Username or Password cannot be empty");
             }
-            const res = await dispatch(login({ username, password }))
+
+            if(password !== confirmPassword){
+                throw new Error("Passwords do not match");
+            }
+
+            const res = await dispatch(userActions.addSignup({ username, password }))
             if (res.payload) {
-                router.replace('/home');
-                ToastAndroid.show('Logged In.', ToastAndroid.SHORT);
+                router.push({
+                    pathname: '/signup/profile',
+                    params: {
+                        username,
+                        password,
+                        create : true
+                    }
+                });
+                ToastAndroid.show('Sign Up.', ToastAndroid.SHORT);
             }
             else {
                 throw new Error("Invalid Credentials");
             }
+
         } catch (error: any) {
             setError(error.message);
         }
@@ -48,10 +64,12 @@ const Login = (props: Props) => {
 
     return (
         <View style={styles.container}>
-            <Card.Cover source={iconUri} style={{ width: 150, height: 150, alignSelf: 'center', backgroundColor: "transparent" }} />
+             <Card.Cover source={iconUri} style={{ width: 150, height: 150, alignSelf: 'center', backgroundColor: "transparent" }} />
             <Text variant='headlineMedium' style={{ textAlign: 'center', margin: 20, color: "black" }}>Helping Hands</Text>
             <Card style={styles.card}>
-                <Text variant='titleLarge' style={{ textAlign: 'center', margin: 20, }}>Login</Text>
+                <Text variant='titleLarge' style={{ textAlign: 'center', margin: 20, }}>
+                    Create a new Account 
+                </Text>
                 <Card.Content>
                     <TextInput
                         label={'Email'}
@@ -59,6 +77,7 @@ const Login = (props: Props) => {
                         style={styles.input}
                         value={username}
                         keyboardType='email-address'
+                        returnKeyType='next'
                         onChangeText={text => { setUsername(text); setError(''); }}
                     />
                     <TextInput
@@ -67,16 +86,27 @@ const Login = (props: Props) => {
                         style={styles.input}
                         value={password}
                         secureTextEntry={!visible}
-                        keyboardType='visible-password'
+                        
                         onChangeText={text => { setPassword(text); setError(''); }}
                         right={<TextInput.Icon icon={visible ? 'eye-off' : 'eye'} onPress={() => { setVisible(!visible) }} />}
                     />
 
+                    <TextInput
+                        label={'Confirm Password'}
+                        placeholder='Confirm Password'
+                        style={styles.input}
+                        value={confirmPassword}
+                        secureTextEntry={!visible}
+                        onChangeText={text => { setConfirmPassword(text); setError(''); }}
+                        right={<TextInput.Icon icon={visible ? 'eye-off' : 'eye'} onPress={() => { setVisible(!visible) }} />}
+                    />
+
+
                     <Text style={{ color: 'red', textAlign: 'center', marginBottom: 20 }}>{error}</Text>
-                    <Button mode='contained' disabled={loading} style={{ marginBottom: 20, }} onPress={_onLoginPressed}>Login</Button>
+                    <Button mode='contained' disabled={loading} style={{ marginBottom: 20, }} onPress={_onSignupPressed}>Create Account</Button>
                     <Card.Actions>
                         <Card.Content>
-                            <Link href={'/signup'}>Don't have an account? Signup here.</Link>
+                            <Link href={'/login'}>Already have an account?</Link>
                         </Card.Content>
                     </Card.Actions>
                 </Card.Content>
@@ -86,7 +116,7 @@ const Login = (props: Props) => {
     )
 }
 
-export default Login
+export default Signup
 
 const styles = StyleSheet.create({
     container: {

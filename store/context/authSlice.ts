@@ -1,4 +1,5 @@
 import {PayloadAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import { store } from '..';
 
 type initState = {
   isAuth: boolean;

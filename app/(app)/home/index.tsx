@@ -13,6 +13,11 @@ const Home = (props: Props) => {
     return (
         <View style={styles.container}>
            <Text>Home, Logged IN</Text>
+
+           <Button onPress={() => {
+                router.replace('/login');
+                ToastAndroid.show('Logged Out.', ToastAndroid.SHORT);
+            }}>Logout</Button>
         </View>
     )
 }

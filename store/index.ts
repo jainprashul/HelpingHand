@@ -3,16 +3,20 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistReducer, persistStore } from "redux-persist";
 
 import templateSlice from "./context/termplateSlice";
+import authSlice from "./context/authSlice";
+import userSlice from "./context/userSlice";
 
 
 const rootReducer = combineReducers({
  template : templateSlice ,
+ auth : authSlice,
+ user : userSlice,
 })
 
 const persistConfig  = {
   key: 'root',
   storage : AsyncStorage,
-  whitelist : ["home"]
+  whitelist : ["auth, user"]
 }
 
 
