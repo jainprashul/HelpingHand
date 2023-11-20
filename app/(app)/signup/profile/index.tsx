@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Avatar, Button, Card, Text, TextInput } from 'react-native-paper'
 import { StyleSheet, ScrollView, View , ToastAndroid} from 'react-native'
 
-import { Link, useLocalSearchParams, router } from "expo-router"
-import { useAppDispatch } from '../../../../store/hooks'
+import { Link, useLocalSearchParams, router, Stack } from "expo-router"
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
 import { theme } from '../../../../style/theme'
 import { generateUUID, randomUserAvatar } from '../../../../utils'
 import { Profile } from '../../../../types/user'
 import SelectDropdown from 'react-native-select-dropdown';
 import { skillList } from '../../../../constants'
 import { addProfile } from '../../../../store/context/userSlice'
+import { supabase } from '../../../../lib/supabase'
+import { updateProfile } from '../../../../store/context/authSlice'
 
 
 
@@ -26,13 +28,18 @@ const CreateProfile = (props: Props) => {
     const dispatch = useAppDispatch();
     const params = useLocalSearchParams() as unknown as SignupParams;
 
+
     const [name, setName] = React.useState('');
     const [address, setAddress] = React.useState('');
     const [city, setCity] = React.useState('');
 
     const [phone, setPhone] = React.useState('');
 
-    const [avatar] = React.useState(() => randomUserAvatar());
+    const [avatar, setAvatar] = React.useState(() => randomUserAvatar());
+
+    const user = useAppSelector(state => state.auth.user)
+
+    console.log("User", user);
 
     const [skills, setSkills] = React.useState<string[]>([]);
     const [bio, setBio] = React.useState('');
@@ -41,22 +48,25 @@ const CreateProfile = (props: Props) => {
 
     const [error, setError] = React.useState('');
 
+  
+
 
     const _onSave = async () => {
+        setLoading(true);
         try {
             const profile: Profile = {
                 email: params.username,
-                password: params.password,
                 avatar,
                 name,
                 address,
                 city,
                 phone,
                 skills,
-                id: generateUUID('user')
+                id: user?.id ?? "",
+                bio,
             }
 
-            dispatch(addProfile(profile)).then((res) => {
+            dispatch(updateProfile(profile)).then((res) => {
                 if (res.payload) {
                     router.replace('/home');
                     ToastAndroid.show('Profile Created.', ToastAndroid.SHORT);
@@ -79,6 +89,9 @@ const CreateProfile = (props: Props) => {
 
     return (
         <ScrollView style={styles.container}>
+            <Stack.Screen options={{
+                headerShown: false,
+            }} />
 
             <Card style={styles.card}>
                 <Text variant='titleMedium' style={{ textAlign: 'center', margin: 20, }}>

@@ -1,22 +1,20 @@
-import { Drawer } from "./Drawer";
+import { Drawer } from "expo-router/drawer";
+import { Stack } from "expo-router";
+import { theme } from "../../style/theme";
 
 export default function RootLayout() {
     return (
-        <Drawer>
-          <Drawer.Screen
-            name="home" // This is the name of the page and must match the url from root
-            options={{
-              drawerLabel: "Home",
-              title: "overview",
-            }}
-          />
-          <Drawer.Screen
-            name="user/[id]" // This is the name of the page and must match the url from root
-            options={{
-              drawerLabel: "User",
-              title: "overview",
-            }}
-          />
-        </Drawer>
+      <Stack
+      screenOptions={{
+        headerTitleAlign: 'center',
+        headerStyle: {
+            backgroundColor: theme.colors.surface,
+        },
+        headerTintColor: theme.colors.primary,
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+      }}
+    />
     );
   }

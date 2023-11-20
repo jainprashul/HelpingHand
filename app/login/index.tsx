@@ -32,7 +32,7 @@ const Login = (props: Props) => {
             }
             const res = await dispatch(login({ username, password }))
             if (res.payload) {
-                router.replace('/home');
+                router.replace('/(app)/home');
                 ToastAndroid.show('Logged In.', ToastAndroid.SHORT);
             }
             else {
@@ -67,7 +67,6 @@ const Login = (props: Props) => {
                         style={styles.input}
                         value={password}
                         secureTextEntry={!visible}
-                        keyboardType='visible-password'
                         onChangeText={text => { setPassword(text); setError(''); }}
                         right={<TextInput.Icon icon={visible ? 'eye-off' : 'eye'} onPress={() => { setVisible(!visible) }} />}
                     />

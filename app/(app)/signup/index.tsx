@@ -2,10 +2,11 @@ import React from 'react'
 import { Avatar, Button, Card, Text, TextInput } from 'react-native-paper'
 import { View, StyleSheet, ImageBackground, ToastAndroid } from 'react-native'
 
-import {Link, router} from "expo-router"
+import {Link, Stack, router} from "expo-router"
 import { useAppDispatch } from '../../../store/hooks'
 import { theme } from '../../../style/theme'
 import { userActions } from '../../../store/context/userSlice'
+import { signup } from '../../../store/context/authSlice'
 
 
 const iconUri = require('../../../assets/icon.png')
@@ -38,7 +39,7 @@ const Signup = (props: Props) => {
                 throw new Error("Passwords do not match");
             }
 
-            const res = await dispatch(userActions.addSignup({ username, password }))
+            const res = await dispatch(signup({ username, password }));
             if (res.payload) {
                 router.push({
                     pathname: '/signup/profile',
@@ -64,6 +65,9 @@ const Signup = (props: Props) => {
 
     return (
         <View style={styles.container}>
+            <Stack.Screen options={{
+                headerShown: false,
+            }} />
              <Card.Cover source={iconUri} style={{ width: 150, height: 150, alignSelf: 'center', backgroundColor: "transparent" }} />
             <Text variant='headlineMedium' style={{ textAlign: 'center', margin: 20, color: "black" }}>Helping Hands</Text>
             <Card style={styles.card}>
