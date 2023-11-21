@@ -26,23 +26,24 @@ type Props = {}
 
 const CreateProfile = (props: Props) => {
     const dispatch = useAppDispatch();
-    const params = useLocalSearchParams() as unknown as SignupParams;
+    const params = useLocalSearchParams() as any;
+    const _profile = JSON.parse(params?.profile ?? "{}");
 
 
-    const [name, setName] = React.useState('');
-    const [address, setAddress] = React.useState('');
-    const [city, setCity] = React.useState('');
+    const [name, setName] = React.useState(_profile?.name ?? '');
+    const [address, setAddress] = React.useState(_profile?.address ?? '');
+    const [city, setCity] = React.useState(_profile?.city ?? '');
 
-    const [phone, setPhone] = React.useState('');
+    const [phone, setPhone] = React.useState(_profile?.phone ?? '');
 
-    const [avatar, setAvatar] = React.useState(() => randomUserAvatar());
+    const [avatar, setAvatar] = React.useState(() => _profile.avatar ?? randomUserAvatar());
 
     const user = useAppSelector(state => state.auth.user)
 
     console.log("User", user);
 
-    const [skills, setSkills] = React.useState<string[]>([]);
-    const [bio, setBio] = React.useState('');
+    const [skills, setSkills] = React.useState<string[]>(params?.skills ?? []);
+    const [bio, setBio] = React.useState(_profile?.bio ?? '');
 
     const [loading, setLoading] = React.useState(false);
 
@@ -55,7 +56,7 @@ const CreateProfile = (props: Props) => {
         setLoading(true);
         try {
             const profile: Profile = {
-                email: params.username,
+                email: user?.email ?? "",
                 avatar,
                 name,
                 address,
@@ -90,12 +91,13 @@ const CreateProfile = (props: Props) => {
     return (
         <ScrollView style={styles.container}>
             <Stack.Screen options={{
-                headerShown: false,
+                headerShown:  Boolean(_profile.name),
+                headerTitle: "Edit Profile",
             }} />
 
             <Card style={styles.card}>
                 <Text variant='titleMedium' style={{ textAlign: 'center', margin: 20, }}>
-                    Create your Profile
+                    {_profile ? "Edit" : "Create"} your Profile
                 </Text>
                 <Card.Content>
                     <Avatar.Image source={{
@@ -140,6 +142,7 @@ const CreateProfile = (props: Props) => {
                     <SelectDropdown data={skillList}
                     buttonStyle={styles.dropdownBtn}
                     search
+                    defaultValue={skills[0]}
                     onSelect={(selectedItem, index) => {
                         console.log(selectedItem, index)
                         setSkills([selectedItem]);
@@ -176,7 +179,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 10,
-        paddingTop: 50,
+
         backgroundColor: theme.colors.surface,
     },
     card: {

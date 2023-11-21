@@ -48,8 +48,6 @@ export const signup = createAsyncThunk(
           email : data.username,
           password : data.password,
         })
-
-        
         if(res.error){
           return Promise.reject(res.error.message)
         } 
@@ -101,7 +99,10 @@ export const authSlice = createSlice({
     setAuth: (state, action: PayloadAction<boolean>) => {
       state.isAuth = action.payload;
     },
-
+    
+    setProfile : (state, action : PayloadAction<Profile>) => {
+      state.profile = action.payload
+    },
 
     setSession: (state, action: PayloadAction<Session>) => {
       state.token = action.payload.access_token;
