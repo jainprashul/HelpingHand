@@ -2,21 +2,21 @@ import { Action, AnyAction, Dispatch, MiddlewareAPI, combineReducers, configureS
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persistReducer, persistStore } from "redux-persist";
 
-import templateSlice from "./context/termplateSlice";
 import authSlice from "./context/authSlice";
 import userSlice from "./context/userSlice";
+import postSlice  from "./context/postSlice";
 
 
 const rootReducer = combineReducers({
- template : templateSlice ,
  auth : authSlice,
  user : userSlice,
+ post : postSlice,
 })
 
 const persistConfig  = {
-  key: 'root',
+  key: 'root-store',
   storage : AsyncStorage,
-  whitelist : ["auth, user"]
+  whitelist : ["auth, user", "post"]
 }
 
 

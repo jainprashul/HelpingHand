@@ -36,7 +36,7 @@ const CreateProfile = (props: Props) => {
     const _onSave = async () => {
         try {
             const post: Job = {
-                id: generateUUID('post'),
+                
                 timestamp: Date.now(),
                 title,
                 description,
@@ -50,10 +50,7 @@ const CreateProfile = (props: Props) => {
                 tags,
             }
 
-            
-
-
-            console.log("Save Pressed", post);
+        
             jobService.add(post).then((res) => {
                 router.back();
                 ToastAndroid.show("Post Created", ToastAndroid.SHORT);
@@ -73,13 +70,13 @@ const CreateProfile = (props: Props) => {
     return (
         <ScrollView style={styles.container}>
             <Stack.Screen options={{
-                headerTitle: "Create Post",
+                headerTitle: "Post a new Job",
             }} />
 
             <Card style={styles.card}>
-                <Text variant='titleMedium' style={{ textAlign: 'center', margin: 20, }}>
+                {/* <Text variant='titleMedium' style={{ textAlign: 'center', margin: 20, }}>
                     Create new Post
-                </Text>
+                </Text> */}
                 <Card.Content>
                     <TextInput
                         label={'Title'}
