@@ -1,15 +1,16 @@
 import React from 'react'
-import { Avatar, Button, Card, Text, TextInput } from 'react-native-paper'
-import { StyleSheet, ScrollView, View, ToastAndroid } from 'react-native'
+import { Button, Card, Text, TextInput } from 'react-native-paper'
+import { StyleSheet, ScrollView, ToastAndroid } from 'react-native'
 
-import { Link, useLocalSearchParams, router, Stack } from "expo-router"
+import { router, Stack } from "expo-router"
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import SelectDropdown from 'react-native-select-dropdown'
 import { skillList } from '../../../constants'
 import { theme } from '../../../style/theme'
-import { generateUUID } from '../../../utils'
+
 import { Job } from '../../../types/job'
 import { jobService } from '../../../lib/services/jobService'
+import { getPosts } from '../../../store/context/postSlice'
 
 
 type Props = {}
@@ -44,6 +45,7 @@ const CreateProfile = (props: Props) => {
                 createdBy: user?.id ?? "",
                 createdByName: user?.name ?? "",
                 contact: user?.phone ?? "",
+                
             
                 price: price ?? 0,
                 skills,
@@ -52,6 +54,7 @@ const CreateProfile = (props: Props) => {
 
         
             jobService.add(post).then((res) => {
+                dispatch(getPosts());
                 router.back();
                 ToastAndroid.show("Post Created", ToastAndroid.SHORT);
             }).catch((err) => {
@@ -129,7 +132,6 @@ const CreateProfile = (props: Props) => {
                         buttonStyle={styles.dropdownBtn}
                         search
                         onSelect={(selectedItem, index) => {
-                            console.log(selectedItem, index)
                             setSkills([selectedItem]);
                         }}
                     />

@@ -40,8 +40,6 @@ const CreateProfile = (props: Props) => {
 
     const user = useAppSelector(state => state.auth.user)
 
-    console.log("User", user);
-
     const [skills, setSkills] = React.useState<string[]>(params?.skills ?? []);
     const [bio, setBio] = React.useState(_profile?.bio ?? '');
 
@@ -144,7 +142,6 @@ const CreateProfile = (props: Props) => {
                     search
                     defaultValue={skills[0]}
                     onSelect={(selectedItem, index) => {
-                        console.log(selectedItem, index)
                         setSkills([selectedItem]);
                     }}
                     />

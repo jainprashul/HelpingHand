@@ -1,6 +1,8 @@
-import { Drawer } from "expo-router/drawer";
-import { Stack } from "expo-router";
+
+import { Slot, Stack } from "expo-router";
 import { theme } from "../../style/theme";
+import { Icon } from "react-native-paper";
+
 
 export default function RootLayout() {
     return (
@@ -15,6 +17,8 @@ export default function RootLayout() {
             fontWeight: 'bold',
         },
       }}
-    />
+    >
+        
+    </Stack>
     );
   }

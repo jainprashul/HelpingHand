@@ -11,20 +11,10 @@ import { FontAwesome } from '@expo/vector-icons';
 
 export default function ProfilePage(){
     const params = useLocalSearchParams();
-
-    console.log(params, "params");
     const dispatch = useAppDispatch();
     const profile = useAppSelector((state) => state.auth.profile);
-    const user = useAppSelector((state) => state.auth.user);
-    React.useEffect(() => {
-        console.log(user, "user");
-        supabase.from('users').select('*').eq('id', user?.id).single().then(({ data, error }) => {
-            console.log(data, "data");
-            dispatch(authActions.setProfile(data));
-        });
-    }, []);
 
-    console.log(profile, "profile");
+
     return(
         <View style={styles.container}>
             <Stack.Screen options={{
