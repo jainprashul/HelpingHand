@@ -7,6 +7,7 @@ import { router } from 'expo-router'
 
 type Props = {
     item : Job
+    children? : React.ReactNode
 }
 
 export default function JobCard(props : Props) {
@@ -53,6 +54,8 @@ export default function JobCard(props : Props) {
                 </View>
 
             </View>
+
+            {props.children}
 
 
         </Card.Content>

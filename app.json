@@ -23,7 +23,8 @@
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.jainprashul.HelpingHand"
+      "package": "com.jainprashul.HelpingHand",
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -38,6 +39,12 @@
       "eas": {
         "projectId": "1c666f04-56ca-4927-b100-129a6ade32bd"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/1c666f04-56ca-4927-b100-129a6ade32bd"
     }
   }
 }

@@ -41,10 +41,11 @@ export default function MDrawer({ open, setOpen, anchor }: Props) {
             router.push('/(app)/profile');
             setOpen(false);
         }} title="Profile" />
-        <Menu.Item leadingIcon={'inbox'} onPress={() => {
-            router.push('/(app)/messages');
+        
+        <Menu.Item leadingIcon={'post'} onPress={() => {
+            router.push('/(app)/listings');
             setOpen(false);
-        }} title="Messages" />
+        }} title="My Listings" />
         <Menu.Item leadingIcon={'cog'} onPress={() => {
             router.push('/(app)/settings');
             setOpen(false);

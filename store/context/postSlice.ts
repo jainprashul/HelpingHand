@@ -29,7 +29,7 @@ const initialState : initState = {
 export const getPosts = createAsyncThunk('post/getPosts', async () => {
     try {
         const res = await jobService.get();
-        return res
+        return res.sort((a, b) => a.timestamp > b.timestamp ? -1 : 1)
     } catch (error) {
         throw error
     }

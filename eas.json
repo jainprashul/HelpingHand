@@ -10,7 +10,16 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "autoIncrement": true,
+      "env": {
+        "APP_ENV": "production"
+      },
+      "channel": "master",
+      "android" : {
+        "buildType": "apk"
+      }
+    }
   },
   "submit": {
     "production": {}

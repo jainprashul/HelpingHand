@@ -33,6 +33,8 @@ const CreateProfile = (props: Props) => {
 
     const [error, setError] = React.useState('');
 
+    const [city, setCity] = React.useState(user?.city ?? "");
+
 
     const _onSave = async () => {
         try {
@@ -41,7 +43,7 @@ const CreateProfile = (props: Props) => {
                 timestamp: Date.now(),
                 title,
                 description,
-                location: user?.city ?? "",
+                location: city,
                 createdBy: user?.id ?? "",
                 createdByName: user?.name ?? "",
                 contact: user?.phone ?? "",
@@ -116,13 +118,13 @@ const CreateProfile = (props: Props) => {
                         value={tags.join(',')}
                         onChangeText={text => { setTags(text.split(',')); }}
                     />
-                    {/* <TextInput
+                    <TextInput
                         label={'City'}
                         placeholder='City'
                         style={styles.input}
                         value={city}
                         onChangeText={text => { setCity(text);}}
-                    /> */}
+                    />
 
 
                     <Text style={{ textAlign: 'left', }}>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Provider } from "react-redux";
-import { persistor, store } from "../store";
-import { PersistGate } from "redux-persist/integration/react";
+import {  store } from "../store";
 import Loading from "../components/Loading";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PaperProvider } from 'react-native-paper';
@@ -13,7 +12,6 @@ export default function Layout() {
     return (
         <>
             <Provider store={store}>
-                <PersistGate loading={<Loading />} persistor={persistor} />
                 <Shell />
             </Provider>
         </>
