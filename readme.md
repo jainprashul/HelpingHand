@@ -14,13 +14,11 @@ Or you can grab the latest release from the [releases page](https://github.com/j
 
 ## Screenshots
 <!-- set size -->
-<img src="./assets/helpingHand1.png" width="200" height="400" />
-<img src="./assets/helpingHand2.png" width="200" height="400" />
-<img src="./assets/helpingHand3.png" width="200" height="400" />
-<img src="./assets/helpingHand4.png" width="200" height="400" />
-
-
-
+<img src="https://github.com/jainprashul/HelpingHand/assets/20634589/8ea406df-6e85-4433-af3f-3b3f29d53c9a" width="200" height="400" />
+<img src="https://github.com/jainprashul/HelpingHand/assets/20634589/f46fd7e7-efaa-446b-8872-2c2c5723993a" width="200" height="400" />
+<img src="https://github.com/jainprashul/HelpingHand/assets/20634589/9c74abb2-f206-4d01-a8b6-b0a9e2e737a4" width="200" height="400" />
+<img src="https://github.com/jainprashul/HelpingHand/assets/20634589/437ee729-0c31-4e79-9d4f-5d35dd4eff11" width="200" height="400" />
+<img src="https://github.com/jainprashul/HelpingHand/assets/20634589/4f76f8df-4993-4fbf-9483-2d000a7bfcef" width="200" height="400" />
 
 
 ## Table of Contents
